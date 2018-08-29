@@ -1,0 +1,13 @@
+TAGS 
+
+ROUTES
+   PATH /   
+   METHOD POST
+        PARAMS tag{type String}, post{type String}
+        SAVE THE DATA TO THE DATABASE
+
+   PATH /post
+   METHOD GET
+        PARAMS tag{type String}
+        SEARCH THROW DATABASE AND RETURN TAG,POST AND DATE.
+
