@@ -26,7 +26,7 @@ export default class Input extends Component {
     saveTheData() {
         let { tag, post } = this.state;
         let postLenght = post.length;
-        let URL = 'http://localhost:3001';
+        let URL = 'https://tagsrest.herokuapp.com/';
         let data = {
             tag : tag,
             post : post

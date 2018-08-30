@@ -42,7 +42,7 @@
   width: 8rem;
   height: 2.1rem;
   font-size: 19px;
-  background: #fff;
+  background: #444;
   color: #5cb85c;
   border-radius: 4px;
   border: 1.5px solid #5cb85c;
@@ -56,6 +56,7 @@
     color: #fff;
     border: 1.6px solid  #fff;
     background: #5cb85c;
+    cursor: pointer;
 }
 
 .label {

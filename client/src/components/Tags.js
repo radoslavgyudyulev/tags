@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 
-let URL = 'http://localhost:3001';
+let URL = 'https://tagsrest.herokuapp.com/';
 
 export default class Tags extends Component {
 
