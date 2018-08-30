@@ -39,7 +39,7 @@ export default class Tags extends Component {
                 <input placeholder="Search by tag..." id="input" onChange={this.getInputValue} type="text"/>
                 <button className="btn" onClick={this.getTag}>Search</button>
                 
-                {isData 
+                {isData  
                     ? 
                     tag.map(post => {
                         return (
