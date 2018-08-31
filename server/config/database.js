@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
 // Setting up the Database
 module.exports = (settings) => {
-  mongoose.connect(settings.DB)
+  mongoose.connect(settings.DB, { useNewUrlParser: true })
   let db = mongoose.connection
   db.once('open', err => {
     if (err) {

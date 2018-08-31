@@ -25,8 +25,9 @@ app.listen(config.PORT, () => {
 
 // Routes 
 app.post('/', (req,res) => {
-     let { tag, post } = req.body.body;
-     saveTheData(tag, post, res)
+     let { tag, post, color } = req.body.body;
+     console.log(color);
+     saveTheData(tag, post, color, res);
 })
 
 app.get('/post', (req,res) => {
@@ -34,6 +35,27 @@ app.get('/post', (req,res) => {
     getTheData(tag, res);
 
 })
+
+app.get('/delete', (req,res) => {
+    let itemId = req.query.itemId;
+
+    deleteItem(itemId, res);
+})
+
+
+function deleteItem(itemId, res) {
+    Post.findByIdAndRemove(itemId, (err, item) => {
+        if (err) return res.status(500).json({
+            msg : 'Operation Failed',
+            err : err
+        });
+        const response = {
+            msg: "Item successfully deleted",
+            id: item._id
+        };
+        return res.status(200).send(response);
+    });
+}
 
 
 
@@ -46,10 +68,11 @@ function getTheData(tag, res) {
         }));
 }
 
-function saveTheData(tag, post, res) {
+function saveTheData(tag, post, color, res) {
     Post.create({
         tag : tag,
-        post : post
+        post : post,
+        color : color
     }).then(response => res.status(200).json({
         msg : 'Your post was successfuly saved !'
     })).catch(err => res.status(404).json({

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+
 export default class Input extends Component {
 
     constructor(props) {
@@ -9,14 +10,21 @@ export default class Input extends Component {
         this.state = {
             tag : '',
             post : '',
+            color : '',
             isInputVisible : true,
             isTextVisible : false,
-            visibility: 'visible',
+            isColor : false,
             msg : ''
         };
 
+        // functions
         this.handleChange = this.handleChange.bind(this);
         this.saveTheData = this.saveTheData.bind(this);
+        this.enterClickedTag = this.enterClickedTag.bind(this);
+        this.enterClickedMsg = this.enterClickedMsg.bind(this);
+        this.getTag = this.getTag.bind(this);
+        this.getColor = this.getColor.bind(this);
+
     }
 
     handleChange(e) {
@@ -24,12 +32,14 @@ export default class Input extends Component {
     }
 
     saveTheData() {
-        let { tag, post } = this.state;
+        let { tag, post, color } = this.state;
         let postLenght = post.length;
-        let URL = 'https://tagsrest.herokuapp.com/';
+        const URL = 'https://tagsrest.herokuapp.com';
+        //let URL = 'http://localhost:3001';
         let data = {
             tag : tag,
-            post : post
+            post : post,
+            color : color
         };
         
         if(postLenght >= 8) {
@@ -57,8 +67,25 @@ export default class Input extends Component {
             
     }
 
+    enterClickedTag(e) {
+        if(e.key === 'Enter') {
+            this.getTag();
+        }
+    }
+
+    enterClickedMsg(e) {
+        if(e.key === 'Enter') {
+            this.saveTheData();
+        }
+    }
+
+    getColor(e) {
+        let color = e.target.id;
+        this.setState({color : color});
+    }
+
     render() {
-        let { isInputVisible, isTextVisible, msg } = this.state;
+        let { isInputVisible, isTextVisible, color, msg } = this.state;
         return (
             <div className="input-wrapper">
                 {msg 
@@ -74,23 +101,50 @@ export default class Input extends Component {
                         <div className="label">
                             <label >Type your tag</label>
                         </div>
-                        <input id="input" placeholder="Type your tag here..."  name="tag" onChange={this.handleChange} type="text"/>
+                        <input 
+                            id="input" 
+                            placeholder="Type your tag here..."  
+                            name="tag" 
+                            onChange={this.handleChange} 
+                            onKeyPress={this.enterClickedTag}
+                            type="text"/>
                         <div>
-                            <button className="btn" onClick={this.getTag.bind(this)}>Next</button>
+                            <button 
+                                className="btn" 
+                                onClick={this.getTag}>Next</button>
                         </div> 
                     </div>
                     : '' }
-
                 {isTextVisible
                     ?
                     <div>
                         <div className="label">
                             <label>Type your message</label>
                         </div>
-                        <textarea onChange={this.handleChange} name="post" id="text-area" placeholder="Type your message here..." cols="30" rows="10">
+                        <textarea 
+                            onChange={this.handleChange} 
+                            onKeyPress={this.enterClickedMsg}
+                            name="post" 
+                            id="text-area" 
+                            placeholder="Type your message here..." 
+                            cols="30" 
+                            rows="10">
                         </textarea>
+                        {!color
+                            ?
+                            <div>
+                                <h3>Pick up a color</h3>
+                                <div className="colors-wrapper">
+                                    <div onClick={this.getColor} id="green"></div>
+                                    <div onClick={this.getColor} id="yellow"></div>
+                                    <div onClick={this.getColor} id="red"></div>      
+                                </div> 
+                            </div>
+                            : '' }
                         <div>
-                            <button className="btn" onClick={this.saveTheData}>Send</button>
+                            <button 
+                                className="btn" 
+                                onClick={this.saveTheData}>Send</button>
                         </div>
                     </div>
                     : ''}

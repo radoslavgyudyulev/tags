@@ -11,3 +11,8 @@ ROUTES
         PARAMS tag{type String}
         SEARCH THROW DATABASE AND RETURN TAG,POST AND DATE.
 
+   PATH /delete
+   METHOD GET
+        PARAMS id{type String}
+        SEARCH IN DATABASE AND DELETE FOUNDED ITEM     
+
