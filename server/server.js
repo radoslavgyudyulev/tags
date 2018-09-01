@@ -26,7 +26,6 @@ app.listen(config.PORT, () => {
 // Routes 
 app.post('/', (req,res) => {
      let { tag, post, color } = req.body.body;
-     console.log(color);
      saveTheData(tag, post, color, res);
 })
 
@@ -56,7 +55,6 @@ function deleteItem(itemId, res) {
         return res.status(200).send(response);
     });
 }
-
 
 
 function getTheData(tag, res) {

@@ -80,10 +80,7 @@
 }
 
 .post-wrapper {
-   /* border-bottom: 5px solid rgb(21, 224, 14);  */
-  /* border-left: 3.5px solid rgb(21, 224, 14);
-  border-right: 3.5px solid rgb(21, 224, 14); */
-  border-radius: 15px;
+  /* border-radius: 15px; */
   padding: 10px;
   margin-bottom: 25px;
   margin-top: 25px;
@@ -109,7 +106,7 @@
 
 
 #red {
-  background-color: red;
+  background: red;
 }
 #green {
   background: green;
@@ -122,4 +119,12 @@
   color: red;
   cursor: pointer;
   transition: all 0.5s ease-out;
+}
+
+.post-wrapper > h3 {
+  display: inline;
+}
+
+.post-wrapper > i {
+  float: right;
 }

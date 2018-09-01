@@ -4,8 +4,8 @@ import axios from 'axios';
 
 import { Row, Col } from 'react-grid-system';
 
-const URL = 'https://tagsrest.herokuapp.com';
-//let URL = 'http://localhost:3001';
+//const URL = 'https://tagsrest.herokuapp.com';
+let URL = 'http://localhost:3001';
 
 export default class Tags extends Component {
 
@@ -14,7 +14,8 @@ export default class Tags extends Component {
         
         this.state = {
             tag : {},
-            isData : false
+            isData : false,
+            date : ''
         };
 
         this.getTag = this.getTag.bind(this);
@@ -49,7 +50,20 @@ export default class Tags extends Component {
                 if(response.status === 200) {
                     this.getTag();
                 }
-            })
+            });
+    }
+
+    localDate(date) {
+        let currentDate = date.split('T')[0];
+        let splitedHour = date.split('T')[1];
+        let hourDate = splitedHour.split('.')[0];
+        
+        let itemDate = {
+            date : currentDate,
+            hour : hourDate
+        }
+        
+           return itemDate;
     }
 
     render() {
@@ -68,14 +82,13 @@ export default class Tags extends Component {
                         ? 
                         tag.map(post => {
                             return (
-                                <Col sm={12} md={6} lg={4}>
-                                    <div style={{borderBottom : `3px solid ${post.color}`}} className="post-wrapper" key={post._id} >
+                                <Col key={post._id} sm={12} md={6} lg={4}>
+                                    <div style={{borderBottom : `3px solid ${post.color}`, borderTop : `3px solid ${post.color}`}} className="post-wrapper" >
                                         <h3>#{post.tag}</h3>
-                                        <i onClick={this.deleteItem.bind(this)} id={post._id} class="far fa-trash-alt"></i>
-                                        <p id="point"></p>
+                                        <i onClick={this.deleteItem.bind(this)} id={post._id} className="far fa-trash-alt"></i>
                                         <p>{post.post}</p>
                                         <hr/>
-                                        <p id="post-date">{post.date}</p>  
+                                        <p id="post-date">{this.localDate(post.date).date} - {this.localDate(post.date).hour}</p> 
                                     </div>
                                 </Col>
                             );
