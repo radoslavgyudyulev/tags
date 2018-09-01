@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Tags from '../components/Tags';
-import Stepper from '../components/Stepper';
+import TagsPage from '../components/TagsPage/TagContainer';
+import LandingPage from '../components/LandingPage/LandingPage';
 
 
 export default class Routes extends Component {
@@ -10,8 +10,8 @@ export default class Routes extends Component {
         return (
             <div>
                 <Switch>
-                    <Route path='/' exact={true} component={Stepper} />
-                    <Route path='/tags' exact={true} component={Tags} />
+                    <Route path='/' exact={true} component={LandingPage} />
+                    <Route path='/tags' exact={true} component={TagsPage} />
                 </Switch>
             </div>
         );

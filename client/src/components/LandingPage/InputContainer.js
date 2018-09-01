@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import Msg from './Msg';
+import Input from './Input';
+import TextArea from './TextArea';
+import ColorPicker from './ColorPicker';
 
-export default class Input extends Component {
+
+export default class InputContainer extends Component {
 
     constructor(props) {
         super(props);
@@ -90,56 +95,25 @@ export default class Input extends Component {
             <div className="input-wrapper">
                 {msg 
                     ?
-                    <div className="message">
-                        <p>{msg}</p>
-                    </div>
+                    <Msg msg={msg} />
                     : '' }
 
                 {isInputVisible 
                     ? 
-                    <div className="input-wrapper">
-                        <div className="label">
-                            <label >Type your tag</label>
-                        </div>
-                        <input 
-                            id="input" 
-                            placeholder="Type your tag here..."  
-                            name="tag" 
-                            onChange={this.handleChange} 
-                            onKeyPress={this.enterClickedTag}
-                            type="text"/>
-                        <div>
-                            <button 
-                                className="btn" 
-                                onClick={this.getTag}>Next</button>
-                        </div> 
-                    </div>
+                    <Input 
+                        handleChange={this.handleChange}
+                        enterClicked={this.enterClickedTag} 
+                        getTag={this.getTag} />
                     : '' }
                 {isTextVisible
                     ?
                     <div>
-                        <div className="label">
-                            <label>Type your message</label>
-                        </div>
-                        <textarea 
-                            onChange={this.handleChange} 
-                            onKeyPress={this.enterClickedMsg}
-                            name="post" 
-                            id="text-area" 
-                            placeholder="Type your message here..." 
-                            cols="30" 
-                            rows="10">
-                        </textarea>
+                        <TextArea 
+                            handleChange={this.handleChange}
+                            enterClicked={this.enterClickedMsg}/>
                         {!color
                             ?
-                            <div>
-                                <h3>Pick up a color</h3>
-                                <div className="colors-wrapper">
-                                    <div onClick={this.getColor} id="green"></div>
-                                    <div onClick={this.getColor} id="yellow"></div>
-                                    <div onClick={this.getColor} id="red"></div>      
-                                </div> 
-                            </div>
+                            <ColorPicker getColor={this.getColor}/>
                             : '' }
                         <div>
                             <button 

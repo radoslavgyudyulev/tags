@@ -4,8 +4,10 @@ import axios from 'axios';
 
 import { Row, Col } from 'react-grid-system';
 
-//const URL = 'https://tagsrest.herokuapp.com';
-let URL = 'http://localhost:3001';
+import Tag from './Tag';
+
+const URL = 'https://tagsrest.herokuapp.com';
+// let URL = 'http://localhost:3001';
 
 export default class Tags extends Component {
 
@@ -21,6 +23,7 @@ export default class Tags extends Component {
         this.getTag = this.getTag.bind(this);
         this.getInputValue = this.getInputValue.bind(this);
         this.enterClicked = this.enterClicked.bind(this);
+        this.deleteItem = this.deleteItem.bind(this);
     }
 
     getInputValue(e) {
@@ -61,9 +64,9 @@ export default class Tags extends Component {
         let itemDate = {
             date : currentDate,
             hour : hourDate
-        }
+        };
         
-           return itemDate;
+        return itemDate;
     }
 
     render() {
@@ -83,13 +86,14 @@ export default class Tags extends Component {
                         tag.map(post => {
                             return (
                                 <Col key={post._id} sm={12} md={6} lg={4}>
-                                    <div style={{borderBottom : `3px solid ${post.color}`, borderTop : `3px solid ${post.color}`}} className="post-wrapper" >
-                                        <h3>#{post.tag}</h3>
-                                        <i onClick={this.deleteItem.bind(this)} id={post._id} className="far fa-trash-alt"></i>
-                                        <p>{post.post}</p>
-                                        <hr/>
-                                        <p id="post-date">{this.localDate(post.date).date} - {this.localDate(post.date).hour}</p> 
-                                    </div>
+                                    <Tag 
+                                        color={post.color}
+                                        tag={post.tag} 
+                                        id={post._id} 
+                                        date={post.date} 
+                                        post={post.post} 
+                                        deleteItem={this.deleteItem} 
+                                        localDate={this.localDate}/>
                                 </Col>
                             );
                         })
